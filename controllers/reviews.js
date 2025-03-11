@@ -128,7 +128,7 @@ router.delete("/:reviewId/comments/:commentId", verifyToken, async (req, res) =>
         }
 
         review.comments.remove({ _id: req.params.commentId });
-        await hoot.save();
+        await review.save();
 
         res.status(200).json({ message: "Comment deleted successfully" });
     } catch (err) {
