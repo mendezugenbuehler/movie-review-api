@@ -1,30 +1,7 @@
-# Express JWT Auth Template
+# Movie Review API
 
-## About
+This is the back-end api for the Movie Review app.  This includes RESTful API for managing a users authentication, movie reviews, and comments.  This was built using **Express, Node.js, & MongoDB** with JWT authentication.
 
-This repo is an Express JWT Auth template meant to be paired with a front-end app utilizing JWT tokens.
+## Front-End Web Repository 
 
-## Getting started
-
-Fork and clone this repository to your local machine.
-
-After moving into the cloned directory, run `npm i` to download the dependencies.
-
-Create a `.env` file in the root of the project:
-
-```bash
-touch .env
-```
-
-and add your MongoDB URI and a secret JWT string to it. Your MongoDB URI will look something like the first entry, but with your username and password:
-
-```plaintext
-MONGODB_URI=mongodb+srv://<username>:<password>@sei.azure.mongodb.net/myApp?retryWrites=true
-JWT_SECRET=supersecret
-```
-
-Start the app in your terminal with:
-
-``` sh
-npm run dev
-```
+You can find the front-end web implementation of this app here: [Movie Review Web](https://github.com/mendezugenbuehler/movie-review-web)
