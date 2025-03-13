@@ -10,10 +10,6 @@ const commentSchema = new mongoose.Schema(
 
 const reviewSchema = new mongoose.Schema(
     {
-        reviewTitle: {
-            type: String,
-            required: true,
-        },
         movie: {
             type: String,
             required: true,
@@ -32,12 +28,16 @@ const reviewSchema = new mongoose.Schema(
             required: true,
             enum: ['⭐️', '⭐️⭐️', '⭐️⭐️⭐️', '⭐️⭐️⭐️⭐️', '⭐️⭐️⭐️⭐️⭐️'],
         },
+        review: {
+            type: String,
+            required: true,
+        },
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true,
         },
-        comments: [commentSchema], // Embedded array of comments
+        comments: [commentSchema],
     },
     { timestamps: true }
 );
