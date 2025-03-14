@@ -12,7 +12,7 @@ router.post('/sign-up', async (req, res) => {
     const userInDatabase = await User.findOne({ username: req.body.username });
 
     if (userInDatabase) {
-      return res.status(409).json({ err: 'Username already taken.' });
+      return res.status(409).json({ err: 'Woah, we already have one of those viewers!' });
     }
 
     const user = await User.create({
@@ -34,14 +34,14 @@ router.post('/sign-in', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
-      return res.status(401).json({ err: 'Invalid credentials.' });
+      return res.status(401).json({ err: 'Try again' });
     }
 
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password, user.hashedPassword
     );
     if (!isPasswordCorrect) {
-      return res.status(401).json({ err: 'Invalid credentials.' });
+      return res.status(401).json({ err: 'Try again' });
     }
 
     const payload = { username: user.username, _id: user._id };
