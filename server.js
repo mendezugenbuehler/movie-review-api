@@ -26,6 +26,7 @@ app.use('/test-jwt', testJwtRouter);
 app.use('/users', usersRouter);
 app.use('/reviews', reviewsRouter);
 
-app.listen(3000, () => {
-  console.log('The express app is ready!');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`The express app is running on port ${PORT}`);
 });
