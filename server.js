@@ -26,6 +26,10 @@ app.use('/test-jwt', testJwtRouter);
 app.use('/users', usersRouter);
 app.use('/reviews', reviewsRouter);
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Movie Review API!" });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`The express app is running on port ${PORT}`);
