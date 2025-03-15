@@ -17,6 +17,11 @@ mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+const corsOptions = {
+  origin: "https://stately-horse-6d1531.netlify.app", 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
 app.use(cors());
 app.use(express.json());
 app.use(logger('dev'));
