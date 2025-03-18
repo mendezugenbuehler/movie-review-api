@@ -3,7 +3,6 @@ const verifyToken = require("../middleware/verify-token.js");
 const Review = require("../models/review.js");
 const router = express.Router();
 
-// Create a new review
 router.post("/", verifyToken, async (req, res) => {
     try {
         req.body.author = req.user._id;
@@ -15,7 +14,6 @@ router.post("/", verifyToken, async (req, res) => {
     }
 });
 
-// Get all reviews
 router.get("/", async (req, res) => {
     try {
         const reviews = await Review.find({})
@@ -27,7 +25,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Get a specific review by ID
 router.get("/:reviewId", async (req, res) => {
     try {
         const review = await Review.findById(req.params.reviewId).populate("author");
@@ -38,7 +35,6 @@ router.get("/:reviewId", async (req, res) => {
     }
 });
 
-// Update a specific review by ID
 router.put("/:reviewId", verifyToken, async (req, res) => {
     try {
         const review = await Review.findById(req.params.reviewId);
@@ -56,7 +52,6 @@ router.put("/:reviewId", verifyToken, async (req, res) => {
     }
 });
 
-// Delete a specific review by ID
 router.delete("/:reviewId", verifyToken, async (req, res) => {
     try {
         const review = await Review.findById(req.params.reviewId);
@@ -73,7 +68,6 @@ router.delete("/:reviewId", verifyToken, async (req, res) => {
     }
 });
 
-// Add a comment to a specific review
 router.post("/:reviewId/comments", verifyToken, async (req, res) => {
     try {
         const review = await Review.findById(req.params.reviewId);
@@ -92,7 +86,6 @@ router.post("/:reviewId/comments", verifyToken, async (req, res) => {
     }
 });
 
-// Update a comment of a specific review
 router.put("/:reviewId/comments/:commentId", verifyToken, async (req, res) => {
     try {
         const review = await Review.findById(req.params.reviewId);
@@ -114,7 +107,6 @@ router.put("/:reviewId/comments/:commentId", verifyToken, async (req, res) => {
     }
 });
 
-// Delete a comment from a specific review
 router.delete("/:reviewId/comments/:commentId", verifyToken, async (req, res) => {
     try {
         const review = await Review.findById(req.params.reviewId);
