@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
 
         console.log('TMDB Movie Data:', {
             id: tmdbMovie.id,
-            title: tmdbMovie.title
+            title: tmdbMovie.title,
             credits: {
                 crew: tmdbMovie.credits?.crew,
                 hasCrew: !!tmdbMovie.credits?.crew
@@ -70,7 +70,7 @@ router.get('/:id', async (req, res) => {
 
         const firstGenre = tmdbMovie.genres?.[0]?.name || 'Action';
         console.log('First Genre:', firstGenre, 'All genres:', tmdbMovie.genres);
-  // Find existing movie or create new one
+        // Find existing movie or create new one
         let movie = await Movie.findOne({ tmdbId: movieId });
 
         if (movie) {
