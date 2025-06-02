@@ -18,6 +18,11 @@ const movieSchema = new mongoose.Schema({
     voteCount: Number,
     genres: [String],
     runtime: Number,
+    director: String,
+    credits: {
+        type: Object,
+        default: {}
+    },
     reviews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review'

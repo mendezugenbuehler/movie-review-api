@@ -3,6 +3,11 @@ const axios = require('axios');
 class TMDBService {
     constructor() {
         this.apiKey = process.env.TMDB_API_KEY;
+        if (!this.apiKey) {
+            console.error('TMDB API key is not set!');
+        } else {
+            console.log('TMDB API key is set:', this.apiKey.substring(0, 4) + '...');
+        }
         this.baseURL = 'https://api.themoviedb.org/3';
         this.imageBaseURL = 'https://image.tmdb.org/t/p';
         this.cache = new Map();
@@ -50,19 +55,39 @@ class TMDBService {
 
     async getMovieDetails(movieId) {
         try {
-            const cacheKey = this.getCacheKey('details', { movieId });
-            const cached = this.getFromCache(cacheKey);
-            if (cached) return cached;
+            if (!this.apiKey) {
+                throw new Error('TMDB API key is not set');
+            }
 
-            const response = await axios.get(`${this.baseURL}/movie/${movieId}`, {
-                params: {
-                    api_key: this.apiKey,
-                    append_to_response: 'credits,videos,similar'
-                }
+            console.log('Fetching movie details from TMDB for ID:', movieId);
+            const url = `${this.baseURL}/movie/${movieId}`;
+            const params = {
+                api_key: this.apiKey,
+                append_to_response: 'credits,videos,similar',
+                language: 'en-US'
+            };
+
+            console.log('TMDB API URL:', url);
+            console.log('TMDB API Params:', { ...params, api_key: '***' });
+
+            const response = await axios.get(url, { params });
+
+            console.log('TMDB Full Response:', {
+                id: response.data.id,
+                title: response.data.title,
+                hasCredits: !!response.data.credits,
+                credits: response.data.credits,
+                genres: response.data.genres,
+                crew: response.data.credits?.crew,
+                rawResponse: response.data
             });
-            this.setCache(cacheKey, response.data);
+
             return response.data;
         } catch (error) {
+            console.error('TMDB API Error:', error.message);
+            if (error.response) {
+                console.error('TMDB API Error Response:', error.response.data);
+            }
             throw new Error(`Error fetching movie details: ${error.message}`);
         }
     }
