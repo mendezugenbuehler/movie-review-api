@@ -10,6 +10,7 @@ const authRouter = require('./controllers/auth');
 const testJwtRouter = require('./controllers/test-jwt');
 const usersRouter = require('./controllers/users');
 const reviewsRouter = require("./controllers/reviews.js");
+const movieRouter = require('./controllers/movie');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -18,7 +19,7 @@ mongoose.connection.on('connected', () => {
 });
 
 const corsOptions = {
-  origin: "https://stately-horse-6d1531.netlify.app", 
+  origin: "https://stately-horse-6d1531.netlify.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
@@ -30,6 +31,7 @@ app.use('/auth', authRouter);
 app.use('/test-jwt', testJwtRouter);
 app.use('/users', usersRouter);
 app.use('/reviews', reviewsRouter);
+app.use('/movies', movieRouter);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Movie Review API!" });
